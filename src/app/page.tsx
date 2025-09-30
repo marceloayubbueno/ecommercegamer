@@ -1,160 +1,166 @@
 "use client";
-import Header from '@/components/Header'
-import Hero from '@/components/Hero'
-import Services from '@/components/Services'
-import Portfolio from '@/components/Portfolio'
-import Testimonials from '@/components/Testimonials'
-import Stats from '@/components/Stats'
-import Results from '@/components/Results'
-import ChatBotForm from '@/components/ChatBotForm'
-import ModernFooter from '@/components/ModernFooter'
-// import ChatBot from '@/components/ChatBot' // DESABILITADO
-// import { useState } from 'react' // DESABILITADO
+
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { ArrowRight, Star, Truck, Shield, CreditCard } from 'lucide-react'
+import EcommerceHeader from '@/components/ecommerce/Header'
+import ProductCard from '@/components/ecommerce/ProductCard'
+import EcommerceFooter from '@/components/ecommerce/Footer'
+import HeroCarousel from '@/components/ecommerce/HeroCarousel'
+import { featuredProducts } from '@/lib/mock-data'
 
 export default function Home() {
-  // const [showChat, setShowChat] = useState(false); // DESABILITADO
-  // const mobileStyle = typeof window !== 'undefined' && window.innerWidth <= 600 // DESABILITADO
-
   return (
-    <main className="overflow-hidden">
-      <Header />
-      <Hero />
-      <Services />
-      <Portfolio />
-      <Testimonials />
-      <Stats />
-      <Results />
-      {/* Seção de Formulário de Contato */}
-      <section id="formulario-contato" className="relative overflow-hidden bg-black py-20">
-        {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full opacity-20 blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-gradient-to-br from-emerald-600 to-green-500 rounded-full opacity-30 blur-3xl"></div>
-        </div>
-        
-        <div className="container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Text Content */}
-            <div className="space-y-8">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                Pronto para transformar sua{' '}
-                <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                  ideia em realidade
-                </span>?
-              </h2>
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Preencha os dados e nossa equipe entrará em contato para apresentar uma proposta personalizada para seu projeto.
+    <main className="min-h-screen bg-black relative overflow-hidden">
+      {/* Fundo com partículas */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-emerald-950/30"></div>
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [-20, typeof window !== 'undefined' ? window.innerHeight + 20 : 1000],
+              opacity: [0, 0.6, 0],
+            }}
+            transition={{
+              duration: 10 + Math.random() * 10,
+              repeat: Infinity,
+              delay: i * 0.5,
+              ease: "linear"
+            }}
+            className="absolute w-1 h-1 bg-emerald-400/60 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: '-20px',
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="relative z-10">
+        <EcommerceHeader />
+      
+      {/* Hero Section */}
+      <section className="pt-32 pb-16">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+            {/* Left Column */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-8 lg:pr-16"
+            >
+              <h1 className="text-3xl md:text-4xl font-bold text-white leading-relaxed">
+                Os melhores{' '}
+                <span className="gradient-text">produtos gamer</span> e eletrônicos você encontra aqui
+              </h1>
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-xl">
+                Consoles, PCs, periféricos e muito mais com preços incríveis. 
+                Monte seu setup dos sonhos com até 50% OFF!
               </p>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-300">Proposta personalizada em até 24h</span>
+              <div className="flex flex-wrap gap-4 pt-4">
+                <Link href="/products" className="btn-primary flex items-center space-x-2">
+                  <span>Ver Produtos</span>
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link href="/offers" className="btn-secondary">
+                  Ofertas do Dia
+                </Link>
+              </div>
+              
+              {/* Trust Badges */}
+              <div className="grid grid-cols-3 gap-6 pt-12">
+                <div className="flex items-center space-x-2">
+                  <Truck className="w-6 h-6 text-primary" />
+                  <span className="text-sm text-gray-300">Frete Grátis</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-300">Consultoria gratuita</span>
+                <div className="flex items-center space-x-2">
+                  <Shield className="w-6 h-6 text-primary" />
+                  <span className="text-sm text-gray-300">Compra Segura</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-300">Sem compromisso</span>
+                <div className="flex items-center space-x-2">
+                  <CreditCard className="w-6 h-6 text-primary" />
+                  <span className="text-sm text-gray-300">Parcele em 12x</span>
                 </div>
               </div>
-            </div>
-            
-            {/* Right Column - Form */}
-            <div className="flex justify-center lg:justify-end">
-              <ChatBotForm />
-            </div>
+            </motion.div>
+
+            {/* Right Column - Hero Carousel */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative mt-12 lg:mt-0"
+            >
+              <HeroCarousel />
+            </motion.div>
           </div>
         </div>
       </section>
-      <ModernFooter />
-      {/* Botão WhatsApp Flutuante */}
-      <div>
-        <a
-          href="https://wa.me/5528998846446"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            position: 'fixed',
-            bottom: '2rem',
-            right: '2rem',
-            zIndex: 1100,
-            background: 'transparent',
-            border: 'none',
-            borderRadius: '50%',
-            width: '64px',
-            height: '64px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textDecoration: 'none',
-            transition: 'transform 0.2s ease',
-          }}
-          aria-label="Falar no WhatsApp"
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.1)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-          }}
-        >
-          <img 
-            src="/whatsapp-icon.png" 
-            alt="WhatsApp" 
-            style={{
-              width: '48px',
-              height: '48px',
-            }}
-          />
-        </a>
-      </div>
 
-      {/* ChatBot Flutuante - DESABILITADO */}
-      {/* 
-      <div>
-        <button
-          onClick={() => setShowChat((v) => !v)}
-          style={{
-            position: 'fixed',
-            bottom: '2rem',
-            right: '2rem',
-            zIndex: 1100, // Aumentado para garantir que fique acima do chat
-            background: '#2563eb',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '50%',
-            width: '64px',
-            height: '64px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-            cursor: 'pointer',
-            fontSize: '2rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          aria-label={showChat ? 'Fechar chat' : 'Abrir chat'}
-        >
-          {showChat ? '×' : '💬'}
-        </button>
-        {showChat && (
-          <div
-            style={{
-              position: 'fixed',
-              bottom: '8rem',
-              right: '2rem',
-              zIndex: 1000,
-              width: 'auto',
-              ...mobileStyle,
-            }}
-          >
-            <ChatBot />
+      {/* Featured Products */}
+      <section className="py-20">
+        <div className="container">
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">🎮 Gaming & Tech em Destaque</h2>
+              <p className="text-base text-gray-400">Os produtos gamer mais vendidos da semana</p>
+            </div>
+            <Link href="/products" className="text-emerald-400 hover:text-emerald-300 flex items-center space-x-2 group">
+              <span>Ver Todos</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
-        )}
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {featuredProducts.slice(0, 8).map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Banner */}
+      <section className="py-24">
+        <div className="container">
+          <div className="bg-gradient-to-r from-emerald-600 to-green-600 rounded-2xl p-16 text-center shadow-2xl shadow-emerald-500/20">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Cadastre-se e ganhe 10% de desconto na primeira compra!
+              </h2>
+              <p className="text-lg md:text-xl text-emerald-100">
+                Receba ofertas exclusivas e novidades direto no seu e-mail
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Seu melhor e-mail"
+                  className="input flex-1 w-full"
+                />
+                <button className="w-full sm:w-auto whitespace-nowrap bg-white text-emerald-600 hover:bg-emerald-50 font-bold px-6 py-3 rounded-lg shadow-lg">
+                  Cadastrar Agora
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <EcommerceFooter />
       </div>
-      */}
     </main>
   )
 } 

@@ -48,6 +48,7 @@ const Header = () => {
                 </div>
               </div>
               <Link href="#portfolio" className="text-gray-300 hover:text-white font-medium">Portfólio</Link>
+              <Link href="/briefing" className="text-gray-300 hover:text-white font-medium">Briefing</Link>
               <Link href="#pricing" className="text-gray-300 hover:text-white font-medium">Preços</Link>
               <Link href="#about" className="text-gray-300 hover:text-white font-medium">Sobre</Link>
             </nav>
@@ -89,6 +90,7 @@ const Header = () => {
               {!isTesteGratis && <>
                 <Link href="#services" className="block px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Serviços</Link>
                 <Link href="#portfolio" className="block px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Portfólio</Link>
+                <Link href="/briefing" className="block px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Briefing</Link>
                 <Link href="#pricing" className="block px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Preços</Link>
                 <Link href="#about" className="block px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Sobre</Link>
               </>}
