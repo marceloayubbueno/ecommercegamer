@@ -16,9 +16,8 @@ export interface ApiResponse<T = any> {
 
 // ⚠️ MANTÉM: Estrutura exata de headers com JWT
 function getHeaders(userType: 'admin' | 'client' | 'customer', customHeaders: HeadersInit = {}): HeadersInit {
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...customHeaders,
   };
   
   // ⚠️ MANTÉM: Authorization Bearer exatamente como backend espera
@@ -36,7 +35,7 @@ function getHeaders(userType: 'admin' | 'client' | 'customer', customHeaders: He
     headers['Authorization'] = `Bearer ${token}`;
   }
   
-  return headers;
+  return { ...headers, ...customHeaders };
 }
 
 // Base fetch (MANTÉM lógica exata)
